@@ -1,6 +1,8 @@
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
+local isMobile = UserInputService.TouchEnabled
 
 -- GUI اصلی
 local mainGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
@@ -68,7 +70,6 @@ task.delay(3, function()
 	bottomBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 	Instance.new("UICorner", bottomBar).CornerRadius = UDim.new(0, 12)
 
-	-- دکمه آواتار پلیر
 	local avatarBtn = Instance.new("ImageButton", bottomBar)
 	avatarBtn.Size = UDim2.new(0, 60, 0, 60)
 	avatarBtn.Position = UDim2.new(0, 20, 0.5, -30)
@@ -76,7 +77,6 @@ task.delay(3, function()
 	avatarBtn.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size60x60)
 	Instance.new("UICorner", avatarBtn).CornerRadius = UDim.new(1, 0)
 
-	-- دکمه Real GUI
 	local realBtn = Instance.new("TextButton", bottomBar)
 	realBtn.Size = UDim2.new(0, 140, 0, 60)
 	realBtn.Position = UDim2.new(0, 100, 0.5, -30)
@@ -87,33 +87,40 @@ task.delay(3, function()
 	realBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 	Instance.new("UICorner", realBtn).CornerRadius = UDim.new(0, 10)
 
-	-- تابع ساخت پنجره شناور
-	local function createFloatingGui(titleText)
-		local panel = Instance.new("ScreenGui", player.PlayerGui)
-		panel.Name = "Custom_" .. titleText
-		panel.ResetOnSpawn = false
+	local function createRealGui()
+		local realGui = Instance.new("ScreenGui", player.PlayerGui)
+		realGui.Name = "RealGui"
+		realGui.ResetOnSpawn = false
 
-		local frame = Instance.new("Frame", panel)
-		frame.Size = UDim2.new(0, 400, 0, 300)
-		frame.Position = UDim2.new(0.5, 0, 1, -150)
-		frame.AnchorPoint = Vector2.new(0.5, 1)
-		frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		frame.BackgroundTransparency = 0.2
+		local frameSize = isMobile and UDim2.new(0, 220, 0, 200) or UDim2.new(0, 320, 0, 260)
+		local framePos = isMobile and UDim2.new(0.5, -110, 1, -10) or UDim2.new(0.5, -160, 0.5, -130)
+		local anchor = isMobile and Vector2.new(0.5, 1) or Vector2.new(0.5, 0.5)
+
+		local frame = Instance.new("Frame", realGui)
+		frame.Size = frameSize
+        frame.Position = framePos
+		frame.AnchorPoint = anchor
+		frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+		frame.BackgroundTransparency = 0.1
 		frame.Active = true
 		frame.Draggable = true
-		Instance.new("UIStroke", frame).Color = Color3.fromRGB(255, 0, 255)
 		Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+		Instance.new("UIStroke", frame).Color = Color3.fromRGB(255, 0, 255)
 
-		frame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Bounce", 1, true)
-        local title = Instance.new("TextLabel", frame)
-		title.Size = UDim2.new(1, -80, 0, 40)
-		title.Position = UDim2.new(0, 10, 0, 0)
-		title.Text = titleText
-		title.Font = Enum.Font.GothamBold
-		title.TextSize = 24
-		title.TextColor3 = Color3.new(1, 1, 1)
-		title.BackgroundTransparency = 1
-		title.TextXAlignment = Enum.TextXAlignment.Left
+		-- 👇 عنوان Real GUI
+		local titleLabel = Instance.new("TextLabel", frame)
+		titleLabel.Size = UDim2.new(1, -20, 0, 40)
+		titleLabel.Position = UDim2.new(0, 10, 0, 5)
+		titleLabel.Text = "🧩 Real GUI"
+		titleLabel.Font = Enum.Font.GothamBold
+		titleLabel.TextSize = 22
+		titleLabel.TextColor3 = Color3.new(1, 1, 1)
+		titleLabel.BackgroundTransparency = 1
+		titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		if isMobile then
+			frame:TweenPosition(UDim2.new(0.5, -110, 0.7, 0), "Out", "Quad", 0.5, true)
+		end
 
 		local closeBtn = Instance.new("TextButton", frame)
 		closeBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -123,6 +130,11 @@ task.delay(3, function()
 		closeBtn.TextSize = 20
 		closeBtn.TextColor3 = Color3.new(1, 1, 1)
 		closeBtn.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+		Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
+
+		closeBtn.MouseButton1Click:Connect(function()
+			realGui:Destroy()
+		end)
 
 		local minimizeBtn = Instance.new("TextButton", frame)
 		minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -132,85 +144,61 @@ task.delay(3, function()
 		minimizeBtn.TextSize = 20
 		minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
 		minimizeBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+		Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
 
+		local originalSize = frame.Size
 		local isMinimized = false
-		minimizeBtn.MouseButton1Click:Connect(function()
-			if not isMinimized then
-				frame:TweenSize(UDim2.new(0, 400, 0, 50), "Out", "Quad", 0.5, true)
-				isMinimized = true
-			else
-				frame:TweenSize(UDim2.new(0, 400, 0, 300), "Out", "Quad", 0.5, true)
-				isMinimized = false
-			end
-		end)
+		local buttons = {}
 
-		closeBtn.MouseButton1Click:Connect(function()
-			panel:Destroy()
-		end)
-
-		-- تابع نمایش پیام
-		local function showMessage(text, duration)
-			duration = duration or 2
-			local msg = Instance.new("TextLabel", panel)
-			msg.Size = UDim2.new(0, 220, 0, 30)
-			msg.Position = UDim2.new(0.5, -110, 1, -10)
-			msg.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-			msg.BackgroundTransparency = 0.2
-			msg.Text = text
-			msg.Font = Enum.Font.GothamBold
-			msg.TextSize = 16
-			msg.TextColor3 = Color3.new(1, 1, 1)
-			msg.AnchorPoint = Vector2.new(0.5, 1)
-			Instance.new("UICorner", msg).CornerRadius = UDim.new(0, 8)
-			task.delay(duration, function()
-				msg:Destroy()
-			end)
-		end
-
-		-- تابع ساخت دکمه با گوشه‌گرد و عملکرد
-		local function createActionButton(text, posY, actionText, printText)
+		local function createButton(name, yPos, url)
 			local btn = Instance.new("TextButton", frame)
-			btn.Size = UDim2.new(0, 180, 0, 40)
-			btn.Position = UDim2.new(0, 20, 0, posY)
-			btn.Text = text
-			btn.Font = Enum.Font.Gotham
-			btn.TextSize = 18
+			btn.Size = UDim2.new(0, frame.Size.X.Offset - 40, 0, 40)
+			btn.Position = UDim2.new(0, 20, 0, yPos)
+			btn.Text = name
+			btn.Font = Enum.Font.GothamBold
+			btn.TextSize = isMobile and 16 or 18
 			btn.TextColor3 = Color3.new(1, 1, 1)
-			btn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+			btn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			btn.BackgroundTransparency = 0.3
 			Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
 
 			btn.MouseButton1Click:Connect(function()
-				print(printText)
-				showMessage(actionText)
+				loadstring(game:HttpGet(url))()
 			end)
+
+			table.insert(buttons, btn)
 		end
 
-		-- ساخت دکمه‌ها
-		createActionButton("Fly", 60, "Fly successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/fly.txt'))()")
-		createActionButton("TP Tools", 110, "TP Tools successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/tp%20tools.txt'))()")
-		createActionButton("Admin Panel", 160, "Admin Panel successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/adminpanel.txt'))()")
+		createButton("Fly", 60, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/fly.txt")
+		createButton("TP Tools", 110, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/tp%20tools.txt")
+		createButton("Admin Panel", 160, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/adminpanel.txt")
 
-		return panel
+		-- عملکرد دکمه نصفه بستن
+		minimizeBtn.MouseButton1Click:Connect(function()
+			if not isMinimized then
+				frame:TweenSize(UDim2.new(originalSize.X.Scale, originalSize.X.Offset, 0, 50), "Out", "Quad", 0.3, true)
+				for _, btn in pairs(buttons) do
+					btn.Visible = false
+				end
+				isMinimized = true
+			else
+				frame:TweenSize(originalSize, "Out", "Quad", 0.3, true)
+				for _, btn in pairs(buttons) do
+					btn.Visible = true
+				end
+				isMinimized = false
+			end
+		end)
 	end
 
-	-- تابع بستن فقط پنجره‌های شناور
-	local function closeFloatingGUIs()
+	-- اتصال دکمه Real GUI
+	realBtn.MouseButton1Click:Connect(function()
 		for _, gui in pairs(player.PlayerGui:GetChildren()) do
-			if gui:IsA("ScreenGui") and gui.Name:match("^Custom_") then
+			if gui:IsA("ScreenGui") and gui.Name == "RealGui" then
 				gui:Destroy()
 			end
 		end
-	end
-
-	-- اتصال دکمه‌ها
-	realBtn.MouseButton1Click:Connect(function()
-		closeFloatingGUIs()
-		createFloatingGui("🎮 Real GUI Panel")
-	end)
-
-	avatarBtn.MouseButton1Click:Connect(function()
-		closeFloatingGUIs()
-		createFloatingGui("👤 Player Info")
+		createRealGui()
 	end)
 
 	-- دستور چت برای بستن کامل رابط کاربری
@@ -220,7 +208,7 @@ task.delay(3, function()
 				if gui:IsA("ScreenGui") and (
 					gui.Name == "MainGui" or
 					gui.Name == "BottomBar" or
-					gui.Name:match("^Custom_")
+					gui.Name == "RealGui"
 			 ) then
 					gui:Destroy()
 				end
