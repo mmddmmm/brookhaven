@@ -186,9 +186,9 @@ task.delay(3, function()
 		end
 
 		-- ساخت دکمه‌ها
-		createActionButton("Fly", 60, "Fly successfully ran!", "fly")
-		createActionButton("TP Tools", 110, "TP Tools successfully ran!", "tp tools")
-		createActionButton("Admin Panel", 160, "Admin Panel successfully ran!", "admin panel")
+		createActionButton("Fly", 60, "Fly successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/fly.txt'))()")
+		createActionButton("TP Tools", 110, "TP Tools successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/tp%20tools.txt'))()")
+		createActionButton("Admin Panel", 160, "Admin Panel successfully run!", "loadstring(game:HttpGet('https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/adminpanel.txt'))()")
 
 		return panel
 	end
