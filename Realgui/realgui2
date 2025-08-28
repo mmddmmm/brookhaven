@@ -1,1 +1,218 @@
-local+Players+%3D+game%3AGetService%28%22Players%22%29%0D%0Alocal+TweenService+%3D+game%3AGetService%28%22TweenService%22%29%0D%0Alocal+UserInputService+%3D+game%3AGetService%28%22UserInputService%22%29%0D%0Alocal+player+%3D+Players.LocalPlayer%0D%0Alocal+isMobile+%3D+UserInputService.TouchEnabled%0D%0A%0D%0A--+GUI+%D8%A7%D8%B5%D9%84%DB%8C%0D%0Alocal+mainGui+%3D+Instance.new%28%22ScreenGui%22%2C+player%3AWaitForChild%28%22PlayerGui%22%29%29%0D%0AmainGui.Name+%3D+%22MainGui%22%0D%0AmainGui.ResetOnSpawn+%3D+false%0D%0A%0D%0A--+%D9%84%D9%88%D8%AF%DB%8C%D9%86%DA%AF%0D%0Alocal+loadingFrame+%3D+Instance.new%28%22Frame%22%2C+mainGui%29%0D%0AloadingFrame.Size+%3D+UDim2.new%280%2C+420%2C+0%2C+180%29%0D%0AloadingFrame.Position+%3D+UDim2.new%280.5%2C+0%2C+0.5%2C+0%29%0D%0AloadingFrame.AnchorPoint+%3D+Vector2.new%280.5%2C+0.5%29%0D%0AloadingFrame.BackgroundColor3+%3D+Color3.fromRGB%2840%2C+40%2C+40%29%0D%0AloadingFrame.BackgroundTransparency+%3D+0.2%0D%0AInstance.new%28%22UICorner%22%2C+loadingFrame%29.CornerRadius+%3D+UDim.new%280%2C+12%29%0D%0A%0D%0Alocal+stroke+%3D+Instance.new%28%22UIStroke%22%2C+loadingFrame%29%0D%0Astroke.Thickness+%3D+3%0D%0Astroke.ApplyStrokeMode+%3D+Enum.ApplyStrokeMode.Border%0D%0A%0D%0Atask.spawn%28function%28%29%0D%0A%09while+loadingFrame+and+loadingFrame.Parent+do%0D%0A%09%09for+i+%3D+0%2C+255%2C+5+do%0D%0A%09%09%09stroke.Color+%3D+Color3.fromRGB%28i%2C+255+-+i%2C+255%29%0D%0A%09%09%09task.wait%280.02%29%0D%0A%09%09end%0D%0A%09end%0D%0Aend%29%0D%0A%0D%0Alocal+title+%3D+Instance.new%28%22TextLabel%22%2C+loadingFrame%29%0D%0Atitle.Size+%3D+UDim2.new%281%2C+0%2C+0%2C+50%29%0D%0Atitle.Position+%3D+UDim2.new%280%2C+0%2C+0%2C+10%29%0D%0Atitle.Text+%3D+%22%F0%9F%9A%80+%D8%AF%D8%B1+%D8%AD%D8%A7%D9%84+%D8%A8%D8%A7%D8%B1%DA%AF%D8%B0%D8%A7%D8%B1%DB%8C+%D8%B1%D8%A7%D8%A8%D8%B7+%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%DB%8C...%22%0D%0Atitle.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0Atitle.Font+%3D+Enum.Font.GothamBold%0D%0Atitle.TextSize+%3D+22%0D%0Atitle.BackgroundTransparency+%3D+1%0D%0A%0D%0Alocal+progress+%3D+Instance.new%28%22Frame%22%2C+loadingFrame%29%0D%0Aprogress.Size+%3D+UDim2.new%280.9%2C+0%2C+0.15%2C+0%29%0D%0Aprogress.Position+%3D+UDim2.new%280.05%2C+0%2C+0.85%2C+0%29%0D%0Aprogress.BackgroundColor3+%3D+Color3.fromRGB%2860%2C+60%2C+60%29%0D%0AInstance.new%28%22UICorner%22%2C+progress%29.CornerRadius+%3D+UDim.new%280%2C+8%29%0D%0A%0D%0Alocal+fill+%3D+Instance.new%28%22Frame%22%2C+progress%29%0D%0Afill.Size+%3D+UDim2.new%280%2C+0%2C+1%2C+0%29%0D%0Afill.BackgroundColor3+%3D+Color3.fromRGB%280%2C+255%2C+100%29%0D%0AInstance.new%28%22UICorner%22%2C+fill%29.CornerRadius+%3D+UDim.new%280%2C+8%29%0D%0A%0D%0ATweenService%3ACreate%28fill%2C+TweenInfo.new%282.5%29%2C+%7BSize+%3D+UDim2.new%281%2C+0%2C+1%2C+0%29%7D%29%3APlay%28%29%0D%0A%0D%0A--+%D8%A8%D8%B9%D8%AF+%D8%A7%D8%B2+%D9%84%D9%88%D8%AF%DB%8C%D9%86%DA%AF%0D%0Atask.delay%283%2C+function%28%29%0D%0A%09TweenService%3ACreate%28loadingFrame%2C+TweenInfo.new%280.6%29%2C+%7BBackgroundTransparency+%3D+1%7D%29%3APlay%28%29%0D%0A%09task.wait%280.6%29%0D%0A%09loadingFrame%3ADestroy%28%29%0D%0A%0D%0A%09--+%D9%86%D9%88%D8%A7%D8%B1+%D9%BE%D8%A7%DB%8C%DB%8C%D9%86+%D8%AC%D8%AF%D8%A7%DA%AF%D8%A7%D9%86%D9%87%0D%0A%09local+bottomBarGui+%3D+Instance.new%28%22ScreenGui%22%2C+player.PlayerGui%29%0D%0A%09bottomBarGui.Name+%3D+%22BottomBar%22%0D%0A%09bottomBarGui.ResetOnSpawn+%3D+false%0D%0A%0D%0A%09local+bottomBar+%3D+Instance.new%28%22Frame%22%2C+bottomBarGui%29%0D%0A%09bottomBar.Size+%3D+UDim2.new%280%2C+500%2C+0%2C+80%29%0D%0A%09bottomBar.Position+%3D+UDim2.new%280.5%2C+-250%2C+1%2C+-90%29%0D%0A%09bottomBar.BackgroundColor3+%3D+Color3.fromRGB%2830%2C+30%2C+30%29%0D%0A%09Instance.new%28%22UICorner%22%2C+bottomBar%29.CornerRadius+%3D+UDim.new%280%2C+12%29%0D%0A%0D%0A%09local+avatarBtn+%3D+Instance.new%28%22ImageButton%22%2C+bottomBar%29%0D%0A%09avatarBtn.Size+%3D+UDim2.new%280%2C+60%2C+0%2C+60%29%0D%0A%09avatarBtn.Position+%3D+UDim2.new%280%2C+20%2C+0.5%2C+-30%29%0D%0A%09avatarBtn.BackgroundColor3+%3D+Color3.fromRGB%28255%2C+255%2C+255%29%0D%0A%09avatarBtn.Image+%3D+Players%3AGetUserThumbnailAsync%28player.UserId%2C+Enum.ThumbnailType.HeadShot%2C+Enum.ThumbnailSize.Size60x60%29%0D%0A%09Instance.new%28%22UICorner%22%2C+avatarBtn%29.CornerRadius+%3D+UDim.new%281%2C+0%29%0D%0A%0D%0A%09local+realBtn+%3D+Instance.new%28%22TextButton%22%2C+bottomBar%29%0D%0A%09realBtn.Size+%3D+UDim2.new%280%2C+140%2C+0%2C+60%29%0D%0A%09realBtn.Position+%3D+UDim2.new%280%2C+100%2C+0.5%2C+-30%29%0D%0A%09realBtn.Text+%3D+%22%F0%9F%A7%A9+Real+GUI%22%0D%0A%09realBtn.Font+%3D+Enum.Font.GothamBold%0D%0A%09realBtn.TextSize+%3D+20%0D%0A%09realBtn.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0A%09realBtn.BackgroundColor3+%3D+Color3.fromRGB%2860%2C+60%2C+60%29%0D%0A%09Instance.new%28%22UICorner%22%2C+realBtn%29.CornerRadius+%3D+UDim.new%280%2C+10%29%0D%0A%0D%0A%09local+function+createRealGui%28%29%0D%0A%09%09local+realGui+%3D+Instance.new%28%22ScreenGui%22%2C+player.PlayerGui%29%0D%0A%09%09realGui.Name+%3D+%22RealGui%22%0D%0A%09%09realGui.ResetOnSpawn+%3D+false%0D%0A%0D%0A%09%09local+frameSize+%3D+isMobile+and+UDim2.new%280%2C+220%2C+0%2C+200%29+or+UDim2.new%280%2C+320%2C+0%2C+260%29%0D%0A%09%09local+framePos+%3D+isMobile+and+UDim2.new%280.5%2C+-110%2C+1%2C+-10%29+or+UDim2.new%280.5%2C+-160%2C+0.5%2C+-130%29%0D%0A%09%09local+anchor+%3D+isMobile+and+Vector2.new%280.5%2C+1%29+or+Vector2.new%280.5%2C+0.5%29%0D%0A%0D%0A%09%09local+frame+%3D+Instance.new%28%22Frame%22%2C+realGui%29%0D%0A%09%09frame.Size+%3D+frameSize%0D%0A++++++++frame.Position+%3D+framePos%0D%0A%09%09frame.AnchorPoint+%3D+anchor%0D%0A%09%09frame.BackgroundColor3+%3D+Color3.fromRGB%2840%2C+40%2C+40%29%0D%0A%09%09frame.BackgroundTransparency+%3D+0.1%0D%0A%09%09frame.Active+%3D+true%0D%0A%09%09frame.Draggable+%3D+true%0D%0A%09%09Instance.new%28%22UICorner%22%2C+frame%29.CornerRadius+%3D+UDim.new%280%2C+12%29%0D%0A%09%09Instance.new%28%22UIStroke%22%2C+frame%29.Color+%3D+Color3.fromRGB%28255%2C+0%2C+255%29%0D%0A%0D%0A%09%09--+%F0%9F%91%87+%D8%B9%D9%86%D9%88%D8%A7%D9%86+Real+GUI%0D%0A%09%09local+titleLabel+%3D+Instance.new%28%22TextLabel%22%2C+frame%29%0D%0A%09%09titleLabel.Size+%3D+UDim2.new%281%2C+-20%2C+0%2C+40%29%0D%0A%09%09titleLabel.Position+%3D+UDim2.new%280%2C+10%2C+0%2C+5%29%0D%0A%09%09titleLabel.Text+%3D+%22%F0%9F%A7%A9+Real+GUI%22%0D%0A%09%09titleLabel.Font+%3D+Enum.Font.GothamBold%0D%0A%09%09titleLabel.TextSize+%3D+22%0D%0A%09%09titleLabel.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0A%09%09titleLabel.BackgroundTransparency+%3D+1%0D%0A%09%09titleLabel.TextXAlignment+%3D+Enum.TextXAlignment.Left%0D%0A%0D%0A%09%09if+isMobile+then%0D%0A%09%09%09frame%3ATweenPosition%28UDim2.new%280.5%2C+-110%2C+0.7%2C+0%29%2C+%22Out%22%2C+%22Quad%22%2C+0.5%2C+true%29%0D%0A%09%09end%0D%0A%0D%0A%09%09local+closeBtn+%3D+Instance.new%28%22TextButton%22%2C+frame%29%0D%0A%09%09closeBtn.Size+%3D+UDim2.new%280%2C+30%2C+0%2C+30%29%0D%0A%09%09closeBtn.Position+%3D+UDim2.new%281%2C+-35%2C+0%2C+5%29%0D%0A%09%09closeBtn.Text+%3D+%22%C3%97%22%0D%0A%09%09closeBtn.Font+%3D+Enum.Font.GothamBold%0D%0A%09%09closeBtn.TextSize+%3D+20%0D%0A%09%09closeBtn.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0A%09%09closeBtn.BackgroundColor3+%3D+Color3.fromRGB%28100%2C+0%2C+0%29%0D%0A%09%09Instance.new%28%22UICorner%22%2C+closeBtn%29.CornerRadius+%3D+UDim.new%280%2C+6%29%0D%0A%0D%0A%09%09closeBtn.MouseButton1Click%3AConnect%28function%28%29%0D%0A%09%09%09realGui%3ADestroy%28%29%0D%0A%09%09end%29%0D%0A%0D%0A%09%09local+minimizeBtn+%3D+Instance.new%28%22TextButton%22%2C+frame%29%0D%0A%09%09minimizeBtn.Size+%3D+UDim2.new%280%2C+30%2C+0%2C+30%29%0D%0A%09%09minimizeBtn.Position+%3D+UDim2.new%281%2C+-70%2C+0%2C+5%29%0D%0A%09%09minimizeBtn.Text+%3D+%22%E2%86%94%22%0D%0A%09%09minimizeBtn.Font+%3D+Enum.Font.GothamBold%0D%0A%09%09minimizeBtn.TextSize+%3D+20%0D%0A%09%09minimizeBtn.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0A%09%09minimizeBtn.BackgroundColor3+%3D+Color3.fromRGB%2860%2C+60%2C+60%29%0D%0A%09%09Instance.new%28%22UICorner%22%2C+minimizeBtn%29.CornerRadius+%3D+UDim.new%280%2C+6%29%0D%0A%0D%0A%09%09local+originalSize+%3D+frame.Size%0D%0A%09%09local+isMinimized+%3D+false%0D%0A%09%09local+buttons+%3D+%7B%7D%0D%0A%0D%0A%09%09local+function+createButton%28name%2C+yPos%2C+url%29%0D%0A%09%09%09local+btn+%3D+Instance.new%28%22TextButton%22%2C+frame%29%0D%0A%09%09%09btn.Size+%3D+UDim2.new%280%2C+frame.Size.X.Offset+-+40%2C+0%2C+40%29%0D%0A%09%09%09btn.Position+%3D+UDim2.new%280%2C+20%2C+0%2C+yPos%29%0D%0A%09%09%09btn.Text+%3D+name%0D%0A%09%09%09btn.Font+%3D+Enum.Font.GothamBold%0D%0A%09%09%09btn.TextSize+%3D+isMobile+and+16+or+18%0D%0A%09%09%09btn.TextColor3+%3D+Color3.new%281%2C+1%2C+1%29%0D%0A%09%09%09btn.BackgroundColor3+%3D+Color3.fromRGB%2830%2C+30%2C+30%29%0D%0A%09%09%09btn.BackgroundTransparency+%3D+0.3%0D%0A%09%09%09Instance.new%28%22UICorner%22%2C+btn%29.CornerRadius+%3D+UDim.new%280%2C+10%29%0D%0A%0D%0A%09%09%09btn.MouseButton1Click%3AConnect%28function%28%29%0D%0A%09%09%09%09loadstring%28game%3AHttpGet%28url%29%29%28%29%0D%0A%09%09%09end%29%0D%0A%0D%0A%09%09%09table.insert%28buttons%2C+btn%29%0D%0A%09%09end%0D%0A%0D%0A%09%09createButton%28%22Fly%22%2C+60%2C+%22https%3A%2F%2Fraw.githubusercontent.com%2Fmmddmmm%2Fbrookhaven%2Frefs%2Fheads%2Fmain%2FRealgui%2Ffly.txt%22%29%0D%0A%09%09createButton%28%22TP+Tools%22%2C+110%2C+%22https%3A%2F%2Fraw.githubusercontent.com%2Fmmddmmm%2Fbrookhaven%2Frefs%2Fheads%2Fmain%2FRealgui%2Ftp%2520tools.txt%22%29%0D%0A%09%09createButton%28%22Admin+Panel%22%2C+160%2C+%22https%3A%2F%2Fraw.githubusercontent.com%2Fmmddmmm%2Fbrookhaven%2Frefs%2Fheads%2Fmain%2FRealgui%2Fadminpanel.txt%22%29%0D%0A%0D%0A%09%09--+%D8%B9%D9%85%D9%84%DA%A9%D8%B1%D8%AF+%D8%AF%DA%A9%D9%85%D9%87+%D9%86%D8%B5%D9%81%D9%87+%D8%A8%D8%B3%D8%AA%D9%86%0D%0A%09%09minimizeBtn.MouseButton1Click%3AConnect%28function%28%29%0D%0A%09%09%09if+not+isMinimized+then%0D%0A%09%09%09%09frame%3ATweenSize%28UDim2.new%28originalSize.X.Scale%2C+originalSize.X.Offset%2C+0%2C+50%29%2C+%22Out%22%2C+%22Quad%22%2C+0.3%2C+true%29%0D%0A%09%09%09%09for+_%2C+btn+in+pairs%28buttons%29+do%0D%0A%09%09%09%09%09btn.Visible+%3D+false%0D%0A%09%09%09%09end%0D%0A%09%09%09%09isMinimized+%3D+true%0D%0A%09%09%09else%0D%0A%09%09%09%09frame%3ATweenSize%28originalSize%2C+%22Out%22%2C+%22Quad%22%2C+0.3%2C+true%29%0D%0A%09%09%09%09for+_%2C+btn+in+pairs%28buttons%29+do%0D%0A%09%09%09%09%09btn.Visible+%3D+true%0D%0A%09%09%09%09end%0D%0A%09%09%09%09isMinimized+%3D+false%0D%0A%09%09%09end%0D%0A%09%09end%29%0D%0A%09end%0D%0A%0D%0A%09--+%D8%A7%D8%AA%D8%B5%D8%A7%D9%84+%D8%AF%DA%A9%D9%85%D9%87+Real+GUI%0D%0A%09realBtn.MouseButton1Click%3AConnect%28function%28%29%0D%0A%09%09for+_%2C+gui+in+pairs%28player.PlayerGui%3AGetChildren%28%29%29+do%0D%0A%09%09%09if+gui%3AIsA%28%22ScreenGui%22%29+and+gui.Name+%3D%3D+%22RealGui%22+then%0D%0A%09%09%09%09gui%3ADestroy%28%29%0D%0A%09%09%09end%0D%0A%09%09end%0D%0A%09%09createRealGui%28%29%0D%0A%09end%29%0D%0A%0D%0A%09--+%D8%AF%D8%B3%D8%AA%D9%88%D8%B1+%DA%86%D8%AA+%D8%A8%D8%B1%D8%A7%DB%8C+%D8%A8%D8%B3%D8%AA%D9%86+%DA%A9%D8%A7%D9%85%D9%84+%D8%B1%D8%A7%D8%A8%D8%B7+%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%DB%8C%0D%0A%09player.Chatted%3AConnect%28function%28msg%29%0D%0A%09%09if+msg%3Alower%28%29+%3D%3D+%22%2Fclosegui%22+then%0D%0A%09%09%09for+_%2C+gui+in+pairs%28player.PlayerGui%3AGetChildren%28%29%29+do%0D%0A%09%09%09%09if+gui%3AIsA%28%22ScreenGui%22%29+and+%28%0D%0A%09%09%09%09%09gui.Name+%3D%3D+%22MainGui%22+or%0D%0A%09%09%09%09%09gui.Name+%3D%3D+%22BottomBar%22+or%0D%0A%09%09%09%09%09gui.Name+%3D%3D+%22RealGui%22%0D%0A%09%09%09+%29+then%0D%0A%09%09%09%09%09gui%3ADestroy%28%29%0D%0A%09%09%09%09end%0D%0A%09%09%09end%0D%0A%09%09end%0D%0A%09end%29%0D%0Aend%29
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+local isMobile = UserInputService.TouchEnabled
+
+-- GUI اصلی
+local mainGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+mainGui.Name = "MainGui"
+mainGui.ResetOnSpawn = false
+
+-- لودینگ
+local loadingFrame = Instance.new("Frame", mainGui)
+loadingFrame.Size = UDim2.new(0, 420, 0, 180)
+loadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+loadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+loadingFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+loadingFrame.BackgroundTransparency = 0.2
+Instance.new("UICorner", loadingFrame).CornerRadius = UDim.new(0, 12)
+
+local stroke = Instance.new("UIStroke", loadingFrame)
+stroke.Thickness = 3
+stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+task.spawn(function()
+	while loadingFrame and loadingFrame.Parent do
+		for i = 0, 255, 5 do
+			stroke.Color = Color3.fromRGB(i, 255 - i, 255)
+			task.wait(0.02)
+		end
+	end
+end)
+
+local title = Instance.new("TextLabel", loadingFrame)
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Position = UDim2.new(0, 0, 0, 10)
+title.Text = "🚀 در حال بارگذاری رابط کاربری..."
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.BackgroundTransparency = 1
+
+local progress = Instance.new("Frame", loadingFrame)
+progress.Size = UDim2.new(0.9, 0, 0.15, 0)
+progress.Position = UDim2.new(0.05, 0, 0.85, 0)
+progress.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Instance.new("UICorner", progress).CornerRadius = UDim.new(0, 8)
+
+local fill = Instance.new("Frame", progress)
+fill.Size = UDim2.new(0, 0, 1, 0)
+fill.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
+Instance.new("UICorner", fill).CornerRadius = UDim.new(0, 8)
+
+TweenService:Create(fill, TweenInfo.new(2.5), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+
+-- بعد از لودینگ
+task.delay(3, function()
+	TweenService:Create(loadingFrame, TweenInfo.new(0.6), {BackgroundTransparency = 1}):Play()
+	task.wait(0.6)
+	loadingFrame:Destroy()
+
+	-- نوار پایین جداگانه
+	local bottomBarGui = Instance.new("ScreenGui", player.PlayerGui)
+	bottomBarGui.Name = "BottomBar"
+	bottomBarGui.ResetOnSpawn = false
+
+	local bottomBar = Instance.new("Frame", bottomBarGui)
+	bottomBar.Size = UDim2.new(0, 500, 0, 80)
+	bottomBar.Position = UDim2.new(0.5, -250, 1, -90)
+	bottomBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	Instance.new("UICorner", bottomBar).CornerRadius = UDim.new(0, 12)
+
+	local avatarBtn = Instance.new("ImageButton", bottomBar)
+	avatarBtn.Size = UDim2.new(0, 60, 0, 60)
+	avatarBtn.Position = UDim2.new(0, 20, 0.5, -30)
+	avatarBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	avatarBtn.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size60x60)
+	Instance.new("UICorner", avatarBtn).CornerRadius = UDim.new(1, 0)
+
+	local realBtn = Instance.new("TextButton", bottomBar)
+	realBtn.Size = UDim2.new(0, 140, 0, 60)
+	realBtn.Position = UDim2.new(0, 100, 0.5, -30)
+	realBtn.Text = "🧩 Real GUI"
+	realBtn.Font = Enum.Font.GothamBold
+	realBtn.TextSize = 20
+	realBtn.TextColor3 = Color3.new(1, 1, 1)
+	realBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+	Instance.new("UICorner", realBtn).CornerRadius = UDim.new(0, 10)
+
+	local function createRealGui()
+		local realGui = Instance.new("ScreenGui", player.PlayerGui)
+		realGui.Name = "RealGui"
+		realGui.ResetOnSpawn = false
+
+		local frameSize = isMobile and UDim2.new(0, 220, 0, 200) or UDim2.new(0, 320, 0, 260)
+		local framePos = isMobile and UDim2.new(0.5, -110, 1, -10) or UDim2.new(0.5, -160, 0.5, -130)
+		local anchor = isMobile and Vector2.new(0.5, 1) or Vector2.new(0.5, 0.5)
+
+		local frame = Instance.new("Frame", realGui)
+		frame.Size = frameSize
+        frame.Position = framePos
+		frame.AnchorPoint = anchor
+		frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+		frame.BackgroundTransparency = 0.1
+		frame.Active = true
+		frame.Draggable = true
+		Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+		Instance.new("UIStroke", frame).Color = Color3.fromRGB(255, 0, 255)
+
+		-- 👇 عنوان Real GUI
+		local titleLabel = Instance.new("TextLabel", frame)
+		titleLabel.Size = UDim2.new(1, -20, 0, 40)
+		titleLabel.Position = UDim2.new(0, 10, 0, 5)
+		titleLabel.Text = "🧩 Real GUI"
+		titleLabel.Font = Enum.Font.GothamBold
+		titleLabel.TextSize = 22
+		titleLabel.TextColor3 = Color3.new(1, 1, 1)
+		titleLabel.BackgroundTransparency = 1
+		titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+		if isMobile then
+			frame:TweenPosition(UDim2.new(0.5, -110, 0.7, 0), "Out", "Quad", 0.5, true)
+		end
+
+		local closeBtn = Instance.new("TextButton", frame)
+		closeBtn.Size = UDim2.new(0, 30, 0, 30)
+		closeBtn.Position = UDim2.new(1, -35, 0, 5)
+		closeBtn.Text = "×"
+		closeBtn.Font = Enum.Font.GothamBold
+		closeBtn.TextSize = 20
+		closeBtn.TextColor3 = Color3.new(1, 1, 1)
+		closeBtn.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+		Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
+
+		closeBtn.MouseButton1Click:Connect(function()
+			realGui:Destroy()
+		end)
+
+		local minimizeBtn = Instance.new("TextButton", frame)
+		minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
+		minimizeBtn.Position = UDim2.new(1, -70, 0, 5)
+		minimizeBtn.Text = "↔"
+		minimizeBtn.Font = Enum.Font.GothamBold
+		minimizeBtn.TextSize = 20
+		minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
+		minimizeBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+		Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
+
+		local originalSize = frame.Size
+		local isMinimized = false
+		local buttons = {}
+
+		local function createButton(name, yPos, url)
+			local btn = Instance.new("TextButton", frame)
+			btn.Size = UDim2.new(0, frame.Size.X.Offset - 40, 0, 40)
+			btn.Position = UDim2.new(0, 20, 0, yPos)
+			btn.Text = name
+			btn.Font = Enum.Font.GothamBold
+			btn.TextSize = isMobile and 16 or 18
+			btn.TextColor3 = Color3.new(1, 1, 1)
+			btn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			btn.BackgroundTransparency = 0.3
+			Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
+
+			btn.MouseButton1Click:Connect(function()
+				loadstring(game:HttpGet(url))()
+			end)
+
+			table.insert(buttons, btn)
+		end
+
+		createButton("Fly", 60, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/fly.txt")
+		createButton("TP Tools", 110, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/tp%20tools.txt")
+		createButton("Admin Panel", 160, "https://raw.githubusercontent.com/mmddmmm/brookhaven/refs/heads/main/Realgui/adminpanel.txt")
+
+		-- عملکرد دکمه نصفه بستن
+		minimizeBtn.MouseButton1Click:Connect(function()
+			if not isMinimized then
+				frame:TweenSize(UDim2.new(originalSize.X.Scale, originalSize.X.Offset, 0, 50), "Out", "Quad", 0.3, true)
+				for _, btn in pairs(buttons) do
+					btn.Visible = false
+				end
+				isMinimized = true
+			else
+				frame:TweenSize(originalSize, "Out", "Quad", 0.3, true)
+				for _, btn in pairs(buttons) do
+					btn.Visible = true
+				end
+				isMinimized = false
+			end
+		end)
+	end
+
+	-- اتصال دکمه Real GUI
+	realBtn.MouseButton1Click:Connect(function()
+		for _, gui in pairs(player.PlayerGui:GetChildren()) do
+			if gui:IsA("ScreenGui") and gui.Name == "RealGui" then
+				gui:Destroy()
+			end
+		end
+		createRealGui()
+	end)
+
+	-- دستور چت برای بستن کامل رابط کاربری
+	player.Chatted:Connect(function(msg)
+		if msg:lower() == "/closegui" then
+			for _, gui in pairs(player.PlayerGui:GetChildren()) do
+				if gui:IsA("ScreenGui") and (
+					gui.Name == "MainGui" or
+					gui.Name == "BottomBar" or
+					gui.Name == "RealGui"
+			 ) then
+					gui:Destroy()
+				end
+			end
+		end
+	end)
+end)
